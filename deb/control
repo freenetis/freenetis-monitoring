@@ -1,0 +1,15 @@
+Priority: optional
+Section: web
+Pre-Depends: debconf (>= 0.5) | debconf-2.0
+Depends: coreutils (>= 6.10-6), grep (>= 2.5.3), procps, fping, wget (>= 1.11-4.1), psmisc
+Architecture: all
+Maintainer: Ondrej Fibich <ondrej.fibich@gmail.com>
+Homepage: http://www.freenetis.org
+Description: FreenetIS monitoring - monitoring tool for FreenetIS
+ Devices which are obtain from the FreenetIS are monitored using fping tool 
+  and their states are send back to the FreenetIS. The communication is made 
+  using wget tool.
+Description-cs.UTF-8: FreenetIS monitoring - monitorovací nástroj pro FreenetIS
+ Zařízení, které jsou získány z FreenetISu, jsou monitorovány nástrojem fping 
+  a jejich stavy jsou zasílány zpět do FreenetISu. Komunikace probíhá pomocí 
+  nástroje wget. 

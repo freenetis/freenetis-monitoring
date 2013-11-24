@@ -1,0 +1,16 @@
+#!/bin/sh
+# FreenetIS DEB: actions before uninstalling of package
+
+set -e
+
+NAME=freenetis-monitoring
+CONFIGFILE=/etc/freenetis/freenetis-monitoring.conf
+
+# stop daemon
+if [ -x /usr/sbin/invoke-rc.d ]; then
+	invoke-rc.d $NAME stop 3>/dev/null || true
+else
+	/etc/init.d/$NAME stop 3>/dev/null || true
+fi
+
+exit 0
