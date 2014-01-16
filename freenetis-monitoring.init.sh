@@ -132,7 +132,7 @@ version_monitor ()
 
 usage_monitor()
 {
-	echo "usage: `echo $0` (start|stop|restart|status|version|help)"
+	echo "usage: `echo $0` (start|stop|restart|status|version)"
 }
 
 case "$1" in
