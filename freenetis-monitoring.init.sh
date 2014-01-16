@@ -20,7 +20,6 @@
 # Email   kliment@freenetis.org                                                #
 #																		       #
 # Name    freenetis-monitoring.init.sh		     							   #
-# Version 0.9.3                                                                #
 #                                                                              #
 ################################################################################
 
@@ -124,9 +123,16 @@ status_monitor()
 	fi
 }
 
+version_monitor ()
+{
+	VERSION=`"$MONITORD" version 2>/dev/null`
+	
+	echo $VERSION
+}
+
 usage_monitor()
 {
-	echo "usage: `echo $0` (start|stop|restart|status)"
+	echo "usage: `echo $0` (start|stop|restart|status|version|help)"
 }
 
 case "$1" in
@@ -145,6 +151,10 @@ case "$1" in
 	;;
 	status)
 		status_monitor
+		exit 0
+	;;
+	version)
+		version_monitor
 		exit 0
 	;;
 	*)

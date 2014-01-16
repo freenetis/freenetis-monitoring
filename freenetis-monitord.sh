@@ -7,9 +7,12 @@
 # email   kliment@freenetis.org                                                #
 #                                                                              #
 # name    freenetis-monitord.sh                                                #
-# version 0.9.3                                                                #
+# version 0.9.6                                                                #
 #                                                                              #
 ################################################################################
+
+# Version	
+VERSION="0.9.6"
 
 #Load variables from config file
 CONFIG=/etc/freenetis/freenetis-monitoring.conf
@@ -45,6 +48,13 @@ function get_ip()
 	echo -n "$IP"
 }
 
+# Vesion info? Only possible arg.
+if [ $# -eq 1 ]; then
+	if [ "$1" == "version"  ]; then
+		echo "$VERSION"
+		exit 0
+	fi
+fi
 
 # Load variables
 if [ -e $CONFIG ]; then 
