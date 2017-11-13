@@ -1,3 +1,7 @@
+freenetis-monitoring (0.9.7) stable; urgency=low
+  * Optimizes monitoring by avoiding unnecessary loop
+ -- Ondrej Fibich <ondrej.fibich@gmail.com>  Mon, 13 Nov 2017 22:22:09 +0100
+
 freenetis-monitoring (0.9.6) stable; urgency=hight
   * Improoves DEB package condition
  -- Ondrej Fibich <ondrej.fibich@gmail.com>  Thu, 16 Jan 2014 19:16:55 +0100
