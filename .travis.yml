@@ -1,12 +1,19 @@
 sudo: required
 language: generic
 
-services:
-  - docker
+#services:
+#  - docker
   
 before_install:
-  - docker pull debian:stretch
-  - docker run debian:stretch /bin/sh -c "apt-get install fakeroot"
+  - sudo apt-get install fakeroot lintian
+#  - ./debianization.sh 0.1.0 stretch
+#  - docker pull debian:stretch
+#  - docker run debian:stretch /bin/sh -c "apt-get install fakeroot"
 
 script:
+  - ./debianization.sh 0.1.0 squeeze
+  - lintian deb/deb_packages/freenetis-monitoring_0.1.0+squeeze.deb
+  - ./debianization.sh 0.1.0 wheezy
+  - lintian deb/deb_packages/freenetis-monitoring_0.1.0+wheezy.deb
   - ./debianization.sh 0.1.0 stretch
+  - lintian deb/deb_packages/freenetis-monitoring_0.1.0+stretch.deb
