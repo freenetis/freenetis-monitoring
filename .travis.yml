@@ -20,7 +20,7 @@ script:
   # Squeeze
   - /bin/sh ./debianization.sh 0.1.0 squeeze
   - lintian deb_packages/freenetis-monitoring_0.1.0+squeeze.deb
-  - docker run -v $TRAVIS_BUILD_DIR/deb/deb_packages:/build-debs debian:squeeze /bin/sh -c "pwd; ls -l /build-debs"
+  - docker run -v $TRAVIS_BUILD_DIR/deb/deb_packages:/build-debs debian:squeeze /bin/sh -c "dpkg -i /build-debs/freenetis-monitoring_0.1.0+squeeze.deb || apt-get -f install"
   # Wheezy
   - /bin/sh ./debianization.sh 0.1.0 wheezy
   - lintian deb_packages/freenetis-monitoring_0.1.0+wheezy.deb
