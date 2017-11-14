@@ -1,11 +1,17 @@
-sudo: required
+sudo: false
 language: generic
 
 #services:
 #  - docker
-  
-before_install:
-  - sudo apt-get install fakeroot lintian
+
+addons:
+  apt:
+    packages:
+      - fakeroot
+      - lintian
+
+#before_install:
+#  - sudo apt-get install fakeroot lintian
 #  - ./debianization.sh 0.1.0 stretch
 #  - docker pull debian:stretch
 #  - docker run debian:stretch /bin/sh -c "apt-get install fakeroot"
