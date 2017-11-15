@@ -28,11 +28,11 @@ script:
   # Wheezy
   - /bin/sh ./debianization.sh "$VERSION" wheezy
   - lintian ${DEB_PREFIX}+wheezy.deb
-  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+wheezy.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+wheezy.deb old
   # Jessie
   - /bin/sh ./debianization.sh "$VERSION" jessie
   - lintian ${DEB_PREFIX}+jessie.deb
-  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:jessie /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+jessie.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:jessie /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+jessie.deb old
   # Stretch
   - /bin/sh ./debianization.sh "$VERSION" stretch
   - lintian ${DEB_PREFIX}+stretch.deb

@@ -2,7 +2,7 @@
 
 set -e
 
-if [ $# -ne 1 ]; then
+if [ $# -lt 1 ]; then
 	echo "usage: $0 DEB"
 	exit 2
 fi
@@ -14,10 +14,11 @@ export DEBIAN_FRONTEND=noninteractive
 
 echo "Install deb package"
 apt-get update -q
-if apt --version >/dev/null 1>&2; then
-	apt install -q -y "$DEB"
-else
+if [ "$2" == "old" ]; then
+	echo "Old style installation"
 	dpkg -i "$DEB" || apt-get install -q -y -f
+else
+	apt install -q -y "$DEB"
 fi
 
 echo "Daemon test"
