@@ -20,9 +20,11 @@ script:
   # Squeeze
   - /bin/sh ./debianization.sh 0.1.0 squeeze
   - lintian deb_packages/freenetis-monitoring_0.1.0+squeeze.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:squeeze /bin/sh /freenetis/test/install.sh /freenetis/deb/deb_packages/freenetis-monitoring_0.1.0+squeeze.deb
   # Wheezy
   - /bin/sh ./debianization.sh 0.1.0 wheezy
   - lintian deb_packages/freenetis-monitoring_0.1.0+wheezy.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy /bin/sh /freenetis/test/install.sh /freenetis/deb/deb_packages/freenetis-monitoring_0.1.0+wheezy.deb
   # Stretch
   - /bin/sh ./debianization.sh 0.1.0 stretch
   - lintian deb_packages/freenetis-monitoring_0.1.0+stretch.deb

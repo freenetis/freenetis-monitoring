@@ -14,7 +14,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 echo "Install deb package"
 apt-get update -q
-apt install -y "$DEB"
+apt install -q -y "$DEB"
 
 echo "Daemon test"
 $UNIT version
