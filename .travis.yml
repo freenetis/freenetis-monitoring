@@ -10,25 +10,23 @@ addons:
       - fakeroot
       - lintian
 
+env:
+  - DISTRIBUTION=squeeze TEST_MODE=no
+  - DISTRIBUTION=wheezy  TEST_MODE=old
+  - DISTRIBUTION=jessie  TEST_MODE=old
+  - DISTRIBUTION=stretch TEST_MODE=new
+
 before_install:
-  - docker pull debian:squeeze
-  - docker pull debian:wheezy
-  - docker pull debian:stretch
+  - docker pull debian:$DISTRIBUTION
 
 script:
   # Preparations
   - VERSION="`/bin/bash ./freenetis-monitord.sh version`"
-  - DEB_PREFIX=deb_packages/freenetis-monitoring_${VERSION}
-  # Build and test on different platforms
+  - echo $VERSION
+  - DEB=deb_packages/freenetis-monitoring_${VERSION}+$DISTRIBUTION.deb
+  # Build DEB
   - cd deb
-  # Squeeze (no install test)
-  - /bin/sh ./debianization.sh "$VERSION" squeeze
-  - lintian ${DEB_PREFIX}+squeeze.deb
-  # Wheezy
-  - /bin/sh ./debianization.sh "$VERSION" wheezy
-  - lintian ${DEB_PREFIX}+wheezy.deb
-  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+wheezy.deb
-  # Stretch
-  - /bin/sh ./debianization.sh "$VERSION" stretch
-  - lintian ${DEB_PREFIX}+stretch.deb
-  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:stretch /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+stretch.deb
+  - /bin/sh ./debianization.sh "$VERSION" "$DISTRIBUTION"
+  - lintian "$DEB"
+  # Test DEB if enabled by test mode
+  - if [ "$TEST_MODE" != "no" ]; then docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:$DISTRIBUTION /freenetis/test/install.sh /freenetis/deb/${DEB} $TEST_MODE; fi
