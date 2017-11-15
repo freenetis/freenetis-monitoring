@@ -25,7 +25,7 @@ script:
   - DEB=deb_packages/freenetis-monitoring_${VERSION}+$DISTRIBUTION.deb
   # Build DEB
   - cd deb
-  - /bin/sh ./debianization.sh "$VERSION" ""$DISTRIBUTION"
+  - /bin/sh ./debianization.sh "$VERSION" "$DISTRIBUTION"
   - lintian "$DEB"
   # Test DEB if enabled by test mode
   - |
