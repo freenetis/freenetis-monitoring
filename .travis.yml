@@ -10,13 +10,13 @@ addons:
       - fakeroot
       - lintian
 
-evn:
+env:
   - DISTRIBUTION=squeeze TEST_MODE=no
   - DISTRIBUTION=wheezy  TEST_MODE=old
   - DISTRIBUTION=jessie  TEST_MODE=old
   - DISTRIBUTION=stretch TEST_MODE=new
 
-before_script:
+before_install:
   - docker pull debian:$DISTRIBUTION
 
 script:
