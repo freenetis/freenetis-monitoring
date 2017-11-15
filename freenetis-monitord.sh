@@ -7,12 +7,12 @@
 # email   kliment@freenetis.org                                                #
 #                                                                              #
 # name    freenetis-monitord.sh                                                #
-# version 0.9.6                                                                #
+# version 0.9.7                                                                #
 #                                                                              #
 ################################################################################
 
 # Version	
-VERSION="0.9.6"
+VERSION="0.9.7"
 
 #Load variables from config file
 CONFIG=/etc/freenetis/freenetis-monitoring.conf
@@ -107,26 +107,7 @@ do
 	fi
 
 	# use fping to get ip addresses states
-	$FPING -e -f "$HOSTS_INPUT" 2>>$LOG_FILE | while read host
-	do
-		# ip address
-		ip=`echo $host | awk '{print $1}'`
-
-		# state of host (alive or unreachable)
-		state=`echo $host | awk '{print $3}'`
-
-		# latency of host (only for alive state)
-		lat=`echo $host | awk '{print $4}' | sed 's/(//'`
-
-		# do not add ampersand to beginning of file with result
-		if [ -s "$HOSTS_OUTPUT" ];
-		then
-				echo -n "&" >> "$HOSTS_OUTPUT";
-		fi
-
-		# add variables to file with result
-		echo "ip[]=$ip&state[]=$state&lat[]=$lat" >> "$HOSTS_OUTPUT"
-	done
+	$FPING -e -f "$HOSTS_INPUT" 2>>$LOG_FILE | awk '{print "ip[]="$1"&state[]="$3"&lat[]="substr($4,2)}' ORS='&' > "$HOSTS_OUTPUT"
 
 	# remove temporary file with IP addresses to monitor
 	rm -f "$HOSTS_INPUT"
