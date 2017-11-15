@@ -14,11 +14,10 @@ export DEBIAN_FRONTEND=noninteractive
 
 echo "Install deb package"
 apt-get update -q
-if [ apt --version ]; then
+if apt --version >/dev/null 1>&2; then
 	apt install -q -y "$DEB"
 else
-	dpkg -i "$DEB"
-	apt install -q -y -f
+	dpkg -i "$DEB" || apt-get install -q -y -f
 fi
 
 echo "Daemon test"
