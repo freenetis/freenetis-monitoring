@@ -26,6 +26,4 @@ script:
   # Stretch
   - /bin/sh ./debianization.sh 0.1.0 stretch
   - lintian deb_packages/freenetis-monitoring_0.1.0+stretch.deb
-  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:stretch \
-    /bin/sh /freenetis/test/install.sh \
-    /freenetis/deb/deb_packages/freenetis-monitoring_0.1.0+stretch.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:stretch /bin/sh /freenetis/test/install.sh /freenetis/deb/deb_packages/freenetis-monitoring_0.1.0+stretch.deb
