@@ -17,7 +17,7 @@ before_install:
 
 script:
   # Preparations
-  - VERSION="`/bin/sh ./freenetis-monitord.sh version`"
+  - VERSION="`/bin/bash ./freenetis-monitord.sh version`"
   - DEB_PREFIX=deb_packages/freenetis-monitoring_${VERSION}
   # Build and test on different platforms
   - cd deb
