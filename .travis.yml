@@ -13,6 +13,7 @@ addons:
 before_install:
   - docker pull debian:squeeze
   - docker pull debian:wheezy
+  - docker pull debian:lenny
   - docker pull debian:stretch
 
 script:
@@ -28,6 +29,10 @@ script:
   - /bin/sh ./debianization.sh "$VERSION" wheezy
   - lintian ${DEB_PREFIX}+wheezy.deb
   - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+wheezy.deb
+  # Lenny
+  - /bin/sh ./debianization.sh "$VERSION" lenny
+  - lintian ${DEB_PREFIX}+lenny.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:lenny /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+lenny.deb
   # Stretch
   - /bin/sh ./debianization.sh "$VERSION" stretch
   - lintian ${DEB_PREFIX}+stretch.deb
