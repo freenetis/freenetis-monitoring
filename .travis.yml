@@ -22,14 +22,11 @@ before_install:
 script:
   # Preparations
   - VERSION="`/bin/bash ./freenetis-monitord.sh version`"
+  - echo $VERSION
   - DEB=deb_packages/freenetis-monitoring_${VERSION}+$DISTRIBUTION.deb
   # Build DEB
   - cd deb
   - /bin/sh ./debianization.sh "$VERSION" "$DISTRIBUTION"
   - lintian "$DEB"
   # Test DEB if enabled by test mode
-  - |
-    if [ "$TEST_MODE" != "no" ]; then \
-      docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy \
-        /freenetis/test/install.sh /freenetis/deb/${DEB} $TEST_MODE \
-    fi
+  - if [ "$TEST_MODE" != "no" ]; then docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:$DISTRIBUTION /freenetis/test/install.sh /freenetis/deb/${DEB} $TEST_MODE; fi
