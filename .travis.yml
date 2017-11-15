@@ -29,6 +29,6 @@ script:
   - lintian ${DEB_PREFIX}+wheezy.deb
   - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+wheezy.deb
   # Stretch
-  - /bin/sh ./debianization.sh 0.1.0 stretch
-  - lintian deb_packages/freenetis-monitoring_0.1.0+stretch.deb
+  - /bin/sh ./debianization.sh "$VERSION" stretch
+  - lintian ${DEB_PREFIX}+stretch.deb
   - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:stretch /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+stretch.deb
