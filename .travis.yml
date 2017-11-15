@@ -1,0 +1,34 @@
+sudo: false
+language: generic
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - fakeroot
+      - lintian
+
+before_install:
+  - docker pull debian:squeeze
+  - docker pull debian:wheezy
+  - docker pull debian:stretch
+
+script:
+  # Preparations
+  - VERSION="`/bin/bash ./freenetis-monitord.sh version`"
+  - DEB_PREFIX=deb_packages/freenetis-monitoring_${VERSION}
+  # Build and test on different platforms
+  - cd deb
+  # Squeeze (no install test)
+  - /bin/sh ./debianization.sh "$VERSION" squeeze
+  - lintian ${DEB_PREFIX}+squeeze.deb
+  # Wheezy
+  - /bin/sh ./debianization.sh "$VERSION" wheezy
+  - lintian ${DEB_PREFIX}+wheezy.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:wheezy /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+wheezy.deb
+  # Stretch
+  - /bin/sh ./debianization.sh "$VERSION" stretch
+  - lintian ${DEB_PREFIX}+stretch.deb
+  - docker run -v $TRAVIS_BUILD_DIR:/freenetis debian:stretch /freenetis/test/install.sh /freenetis/deb/${DEB_PREFIX}+stretch.deb
